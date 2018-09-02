@@ -3,8 +3,10 @@
     <h3>Logg inn</h3>
     <input type="text" placeholder="Email"><br>
     <input type="password" placeholder="Passord"><br>
-    <button>Login</button>
-    <p>Har du ikke konto? Registrer deg her.</p>
+    <button v-on:click="login" >Login</button>
+    <router-link to="/sign-up">
+      <p >Har du ikke konto? Registrer deg her.</p>
+    </router-link>
   </div>
 </template>
 
@@ -16,7 +18,11 @@ export default {
 
     }
   },
-  methods: {}
+  methods: {
+    login: function() {
+      this.$router.replace('/')
+    }
+  }
 }
 </script>
 
