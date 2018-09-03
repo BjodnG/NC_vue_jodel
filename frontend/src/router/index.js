@@ -19,5 +19,15 @@ export default new Router({
       name: 'signUp',
       component: SignUp
     }
+    /*
+    {
+      path: '/messageForm',
+      name: 'MessageForm',
+      component: MessageForm,
+      meta: {
+        requiresAith: true
+      }
+    }
+    */
   ]
 })

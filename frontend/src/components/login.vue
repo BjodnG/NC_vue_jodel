@@ -1,8 +1,8 @@
 <template lang="html">
   <div class="login">
     <h3>Logg inn</h3>
-    <input type="text" placeholder="Email"><br>
-    <input type="password" placeholder="Passord"><br>
+    <input v-model="email" type="text" placeholder="Email"><br>
+    <input v-model="password" type="password" placeholder="Passord"><br>
     <button v-on:click="login" >Login</button>
     <router-link to="/sign-up">
       <p >Har du ikke konto? Registrer deg her.</p>
@@ -11,16 +11,28 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
   name: 'login',
-  data: () => {
+  data: function() {
     return {
-
+      email: '',
+      password: ''
     }
   },
   methods: {
     login: function() {
-      this.$router.replace('/')
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then(
+        user => {
+          alert('Du er logget inn!')
+          this.$router.replace('/')
+        },
+        err => {
+          alert('Oops. ' + err.message)
+        }
+      );
     }
   }
 }

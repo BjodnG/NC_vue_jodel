@@ -15,7 +15,7 @@ import firebase from 'firebase'
 
 export default {
   name: 'signUp',
-  data: () => {
+  data: function() {
     return {
       email: '',
       password: ''

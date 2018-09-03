@@ -1,6 +1,7 @@
 <template>
   <div id="app">
-    <a id="loginLink" href="/#/login">Logg inn</a>
+    <a v-if="!currentUser" class="loginLink" href="/#/login">Logg inn</a>
+    <a v-if="currentUser" v-on:click="logOut" class="loginLink" >Logg ut</a>
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <router-view></router-view>
@@ -8,12 +9,27 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
   name: 'app',
   data () {
     return {
-      msg: 'NC Jodel med Vue'
+      msg: 'NC Jodel med Vue',
+      currentUser: null
     }
+  },
+  methods: {
+    logOut: function(){
+      firebase.auth().signOut().then(() => {
+        this.currentUser = firebase.auth().currentUser;
+        console.log(this.currentUser);
+      })
+    }
+  },
+  mounted (){
+    this.currentUser = firebase.auth().currentUser;
+    console.log(this.currentUser);
   }
 }
 </script>
@@ -50,7 +66,7 @@ a {
   color: #42b983;
 }
 
-#loginLink {
+.loginLink {
   position: absolute;
   top: 0.2em;
   left: 0.2em;
