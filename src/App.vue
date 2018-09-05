@@ -5,11 +5,13 @@
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <router-view></router-view>
+    <postForm/>
   </div>
 </template>
 
 <script>
 import firebase from 'firebase'
+import postForm from './components/postForm.vue'
 
 export default {
   name: 'app',
@@ -30,6 +32,9 @@ export default {
   mounted (){
     this.currentUser = firebase.auth().currentUser;
     console.log(this.currentUser);
+  },
+  components: {
+    postForm
   }
 }
 </script>
