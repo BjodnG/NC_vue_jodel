@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import firebase from 'firebase'
+
 export default {
   data: function() {
     return {
@@ -16,7 +18,22 @@ export default {
   },
   methods: {
     sendMessage: function() {
-      console.log(this.message);
+      this.writeToDatabase(this.message);
+    },
+    writeToDatabase: function(message) {
+      var userId = firebase.auth().currentUser.uid;
+      firebase.database().ref('posts/' + userId + '/post/').set({
+        message: message,
+        likes: 0
+      })
+    },
+    readFromDatabase: function() {
+      var userId = firebase.auth().currentUser.uid;
+      console.log(firebase.auth().currentUser.uid);
+      firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
+        console.log('teeest.', snapshot);
+
+      })
     }
   }
 }
