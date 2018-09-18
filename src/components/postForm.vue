@@ -21,19 +21,21 @@ export default {
       this.writeToDatabase(this.message);
     },
     writeToDatabase: function(message) {
-      var userId = firebase.auth().currentUser.uid;
-      firebase.database().ref('posts/' + userId + '/post/').set({
+      const userId = firebase.auth().currentUser.uid;
+      const email = firebase.auth().currentUser.email;
+
+      const postData = {
+        author: email,
         message: message,
         likes: 0
-      })
-    },
-    readFromDatabase: function() {
-      var userId = firebase.auth().currentUser.uid;
-      console.log(firebase.auth().currentUser.uid);
-      firebase.database().ref('/users/' + userId).once('value').then((snapshot) => {
-        console.log('teeest.', snapshot);
+      };
 
-      })
+      const newPostKey = firebase.database().ref().child('posts').push().key;
+      const updates = {};
+      updates['/posts/' + newPostKey] = postData;
+      updates['/user-posts/' + userId + '/' + newPostKey] = postData;
+
+      firebase.database().ref().update(updates);
     }
   }
 }
