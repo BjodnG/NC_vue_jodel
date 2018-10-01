@@ -1,11 +1,11 @@
 <template lang="html">
   <div class="post">
     <div class="message__container">
-      {{ message }}
+      {{ data.message }}
     </div>
     <div class='vote__buttons'>
       <button v-on:click='voteUp' class="button__up"><i class="arrow up"></i> </button>
-      {{ votes }}
+      {{ votes }} {{ data.likes }}
       <button v-on:click='voteDown' class="button__down"><i class="arrow down"></i></button>
     </div>
   </div>
@@ -15,7 +15,7 @@
 
 export default {
   name: 'post',
-  props: ['message'],
+  props: ['data'],
 
   data: function() {
     return {
@@ -29,7 +29,7 @@ export default {
     voteDown: function() {
       this.votes -= 1;
     },
-   
+
   }
 }
 </script>
@@ -46,7 +46,7 @@ export default {
     flex-direction: row;
     justify-content: space-between;
   }
-  
+
   button {
     border: none;
     background: transparent;
@@ -77,6 +77,6 @@ export default {
 
   .down {
     transform: rotate(45deg);
-    -webkit-transform: rotate(45deg); 
+    -webkit-transform: rotate(45deg);
   }
 </style>

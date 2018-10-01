@@ -6,12 +6,12 @@ import firebase from 'firebase'
 let app;
 // Initialize Firebase - Denne burde være i egen fil..
 let config = {
-  apiKey: "AIzaSyAWrjaQfVcf5nP2fl_MjswgLmltMcBx6Pw",
-  authDomain: "nc-vue-jodel.firebaseapp.com",
-  databaseURL: "https://nc-vue-jodel.firebaseio.com",
-  projectId: "nc-vue-jodel",
-  storageBucket: "nc-vue-jodel.appspot.com",
-  messagingSenderId: "33121964626"
+  apiKey: "AIzaSyCXEovV8RKGeVxdLbI1jAC36Efsozap0sY",
+  authDomain: "nc-vue-jodel-35b2c.firebaseapp.com",
+  databaseURL: "https://nc-vue-jodel-35b2c.firebaseio.com",
+  projectId: "nc-vue-jodel-35b2c",
+  storageBucket: "nc-vue-jodel-35b2c.appspot.com",
+  messagingSenderId: "705547911764"
 };
 
 firebase.initializeApp(config);

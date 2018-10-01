@@ -5,7 +5,7 @@
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <router-view></router-view>
-    <post message="Hello world!" />
+    <postContainer/>
     <postForm/>
   </div>
 </template>
@@ -13,7 +13,7 @@
 <script>
 import firebase from 'firebase'
 import postForm from './components/postForm.vue'
-import post from './components/post.vue'
+import postContainer from './containers/postContainer.vue'
 
 export default {
   name: 'app',
@@ -37,7 +37,7 @@ export default {
   },
   components: {
     postForm,
-    post,
+    postContainer,
   }
 }
 </script>
