@@ -8,37 +8,37 @@
 </template>
 
 <script>
-import firebase from 'firebase'
+  import firebase from 'firebase'
 
-export default {
-  data: function() {
-    return {
-      message: ""
-    }
-  },
-  methods: {
-    sendMessage: function() {
-      this.writeToDatabase(this.message);
+  export default {
+    data: function () {
+      return {
+        message: ""
+      }
     },
-    writeToDatabase: function(message) {
-      const userId = firebase.auth().currentUser.uid;
-      const email = firebase.auth().currentUser.email;
+    methods: {
+      sendMessage: function () {
+        this.writeToDatabase(this.message);
+      },
+      writeToDatabase: function (message) {
+        const userId = firebase.auth().currentUser.uid;
+        const email = firebase.auth().currentUser.email;
 
-      const postData = {
-        author: email,
-        message: message,
-        likes: 0
-      };
+        const postData = {
+          author: email,
+          message: message,
+          likes: 0
+        };
 
-      const newPostKey = firebase.database().ref().child('posts').push().key;
-      const updates = {};
-      updates['/posts/' + newPostKey] = postData;
-      updates['/user-posts/' + userId + '/' + newPostKey] = postData;
+        const newPostKey = firebase.database().ref().child('posts').push().key;
+        const updates = {};
+        updates['/posts/' + newPostKey] = postData;
+        updates['/user-posts/' + userId + '/' + newPostKey] = postData;
 
-      firebase.database().ref().update(updates);
+        firebase.database().ref().update(updates);
+      }
     }
   }
-}
 </script>
 
 <style lang="css">
