@@ -5,6 +5,7 @@
     <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <router-view></router-view>
+    <postContainer/>
     <postForm/>
   </div>
 </template>
@@ -12,6 +13,7 @@
 <script>
 import firebase from 'firebase'
 import postForm from './components/postForm.vue'
+import postContainer from './containers/postContainer.vue'
 
 export default {
   name: 'app',
@@ -34,7 +36,8 @@ export default {
     console.log(this.currentUser);
   },
   components: {
-    postForm
+    postForm,
+    postContainer,
   }
 }
 </script>
