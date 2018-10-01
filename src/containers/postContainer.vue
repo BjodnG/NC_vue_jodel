@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="">
+  <div class="post__container">
     <post v-for="post in allPosts" :data="post" />
   </div>
 </template>
@@ -22,7 +22,6 @@ export default {
             this.allPosts.push(obj.val())
           })
         });
-
       }
   },
   mounted () {
@@ -35,4 +34,10 @@ export default {
 </script>
 
 <style lang="css">
+  .post__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
