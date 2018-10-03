@@ -53,7 +53,7 @@ export default {
 }
 
 #app > img {
-  max-width: 35%;
+  max-width: 5%;
 }
 
 h1, h2 {

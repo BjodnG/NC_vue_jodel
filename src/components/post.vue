@@ -16,7 +16,6 @@
 export default {
   name: 'post',
   props: ['data'],
-
   data: function() {
     return {
       votes: 0,
