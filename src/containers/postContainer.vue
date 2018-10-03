@@ -1,11 +1,11 @@
 <template lang="html">
   <div class="post__container">
-    <post v-for="post in allPosts" :data="post" />
+    <post v-for="post in allPosts" :snapShot="post" />
   </div>
 </template>
 
 <script>
-import firebase from 'firebase'
+import firebase from 'firebase';
 import post from '../components/post.vue';
 
 export default {
@@ -17,9 +17,9 @@ export default {
   methods: {
       fetchAllPostsFromDatabase() {
         firebase.database().ref('/posts/').once('value')
-        .then(snap => {
-          snap.forEach(obj => {
-            this.allPosts.push(obj.val())
+        .then(snapShots => {
+          snapShots.forEach(snap => {
+            this.allPosts.push(snap);
           })
         });
       }

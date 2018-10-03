@@ -27,7 +27,10 @@ export default {
       const postData = {
         author: email,
         message: message,
-        likes: 0
+        likesCount: 0,
+        likes: {},
+        dislikesCount: 0,
+        dislikes: {}
       };
 
       const newPostKey = firebase.database().ref().child('posts').push().key;

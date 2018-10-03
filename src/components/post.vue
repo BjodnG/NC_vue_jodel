@@ -5,31 +5,58 @@
     </div>
     <div class='vote__buttons'>
       <button v-on:click='voteUp' class="button__up"><i class="arrow up"></i> </button>
-      {{ votes }} {{ data.likes }}
+      {{ votes }} {{ data.likesCount }}
       <button v-on:click='voteDown' class="button__down"><i class="arrow down"></i></button>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase'
 
 export default {
   name: 'post',
-  props: ['data'],
+  props: ['snapShot'],
 
   data: function() {
     return {
       votes: 0,
+      data: {}
     }
   },
   methods: {
     voteUp: function() {
+      const uid = firebase.auth().currentUser.uid;
+      const postRef = this.snapShot.ref;
+
+      postRef.on('value', () => {
+        postRef.transaction(post => {
+          if (post) {
+            if (post.likes && post.likes[uid]) {
+              post.likesCount--;
+              post.likes[uid] = null;
+            } else {
+              post.likesCount++;
+              if (!post.likes) {
+                post.likes = {};
+              }
+              post.likes[uid] = true;
+            }
+          } else {
+            console.log("Feil med post.");
+          }
+          return post;
+        })
+      })
+
       this.votes += 1;
     },
     voteDown: function() {
       this.votes -= 1;
-    },
-
+    }
+  },
+  mounted() {
+    this.data = this.snapShot.val();
   }
 }
 </script>
