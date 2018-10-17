@@ -5,13 +5,14 @@
     </div>
     <div class='vote__buttons'>
       <button v-on:click='voteUp' class="button__up"><i class="arrow up"></i> </button>
-      {{ votes }} {{ data.likes }}
+        {{ data.likesCount - data.dislikesCount }}
       <button v-on:click='voteDown' class="button__down"><i class="arrow down"></i></button>
     </div>
   </div>
 </template>
 
 <script>
+import firebase from 'firebase'
 
 export default {
   name: 'post',
@@ -19,16 +20,71 @@ export default {
   data: function() {
     return {
       votes: 0,
+      data: {}
     }
   },
   methods: {
     voteUp: function() {
-      this.votes += 1;
+      const uid = firebase.auth().currentUser.uid;
+      const postRef = this.snapShot.ref;
+      postRef.on('value', () => {console.log('onValue');})
+      postRef.transaction(post => {
+        if (post) {
+          if (post.likes && post.likes[uid]) {
+            //post.likesCount--;
+            //post.likes[uid] = null;
+            console.log('Allerede gitt like');
+          } else {
+            if (post.dislikes && post.dislikes[uid]) {
+              post.dislikesCount--;
+              post.dislikes[uid] = null;
+            } else {
+              post.likesCount++;
+              if (!post.likes) {
+                post.likes = {};
+              }
+              post.likes[uid] = true;
+            }
+          }
+          console.log('Like fullført');
+        } else {
+          console.log("Feil med post.");
+        }
+        return post;
+      }).then(post => this.data = post.snapshot.val())
     },
     voteDown: function() {
-      this.votes -= 1;
-    },
-
+      const uid = firebase.auth().currentUser.uid;
+      const postRef = this.snapShot.ref;
+      postRef.on('value', () => {console.log('onValue');})
+      postRef.transaction(post => {
+        if (post) {
+          if (post.dislikes && post.dislikes[uid]) {
+            //post.dislikesCount--;
+            //post.dislikes[uid] = null;
+            console.log('Allerede gitt data-bind="disable: "like');
+          } else {
+            if (post.likes && post.likes[uid]) {
+              post.likesCount--;
+              post.likes[uid] = null;
+            } else {
+              post.dislikesCount++;
+              if (!post.dislikes) {
+                post.dislikes = {};
+              }
+              post.dislikes[uid] = true;
+            }
+          }
+          console.log('Like fullført');
+        } else {
+          console.log("Feil med post.");
+        }
+        return post;
+      }).then(post => this.data = post.snapshot.val())
+    }
+  },
+  mounted() {
+    this.data = this.snapShot.val();
   }
 }
 </script>
