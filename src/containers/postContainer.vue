@@ -1,6 +1,6 @@
 <template lang="html">
   <div class="post__container">
-    <post class="post" v-for="post in visiblePosts" :data="post" />
+    <post class="post" v-for="post in visiblePosts" :snapShot="post" />
   </div>
 </template>
 
@@ -27,7 +27,8 @@ export default {
       },
       renderPosts() {
         for (let i = 0; i < 5; i++) {
-          this.visiblePosts.push(this.allPosts.pop())
+          if (this.allPosts.length > 0)
+            this.visiblePosts.push(this.allPosts.pop())
         }
       }
   },

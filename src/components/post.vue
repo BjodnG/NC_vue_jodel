@@ -16,7 +16,7 @@ import firebase from 'firebase'
 
 export default {
   name: 'post',
-  props: ['data'],
+  props: ['snapShot'],
   data: function() {
     return {
       votes: 0,
