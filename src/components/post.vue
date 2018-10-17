@@ -32,19 +32,20 @@ export default {
       postRef.transaction(post => {
         if (post) {
           if (post.likes && post.likes[uid]) {
-            post.likesCount--;
-            post.likes[uid] = null;
-            //console.log('Allerede gitt like');
+            //post.likesCount--;
+            //post.likes[uid] = null;
+            console.log('Allerede gitt like');
           } else {
             if (post.dislikes && post.dislikes[uid]) {
               post.dislikesCount--;
               post.dislikes[uid] = null;
+            } else {
+              post.likesCount++;
+              if (!post.likes) {
+                post.likes = {};
+              }
+              post.likes[uid] = true;
             }
-            post.likesCount++;
-            if (!post.likes) {
-              post.likes = {};
-            }
-            post.likes[uid] = true;
           }
           console.log('Like fullført');
         } else {
@@ -60,21 +61,20 @@ export default {
       postRef.transaction(post => {
         if (post) {
           if (post.dislikes && post.dislikes[uid]) {
-            post.dislikesCount--;
-            post.dislikes[uid] = null;
-            //console.log('Allerede gitt data-bind="disable: "like');
+            //post.dislikesCount--;
+            //post.dislikes[uid] = null;
+            console.log('Allerede gitt data-bind="disable: "like');
           } else {
-
             if (post.likes && post.likes[uid]) {
               post.likesCount--;
               post.likes[uid] = null;
+            } else {
+              post.dislikesCount++;
+              if (!post.dislikes) {
+                post.dislikes = {};
+              }
+              post.dislikes[uid] = true;
             }
-
-            post.dislikesCount++;
-            if (!post.dislikes) {
-              post.dislikes = {};
-            }
-            post.dislikes[uid] = true;
           }
           console.log('Like fullført');
         } else {
