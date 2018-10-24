@@ -38,13 +38,14 @@ export default {
   .post {
     width: 200px;
     height: 100px;
-    background: greenyellow;
+    background: lightseagreen;
     border-radius: 10px;
     padding: 15px;
 
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin-bottom: 15px;
   }
 
   button {
