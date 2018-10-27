@@ -2,7 +2,6 @@
   <div id="app">
     <a v-if="!currentUser" class="loginLink" href="/#/login">Logg inn</a>
     <a v-if="currentUser" v-on:click="logOut" class="loginLink" >Logg ut</a>
-    <img src="./assets/logo.png">
     <h1>{{ msg }}</h1>
     <router-view></router-view>
     <postContainer/>
@@ -49,7 +48,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+
   margin-top: 60px;
+  max-width: 25em;
+  max-height: 50em;
+
+  margin: auto;
+  width: 50%;
 }
 
 #app > img {

@@ -1,6 +1,9 @@
 <template lang="html">
   <div class="post__container">
-    <post class="post" v-for="post in visiblePosts" :snapShot="post" />
+    <post class="post"
+          v-for="post in visiblePosts"
+          :snapShot="post"
+          />
   </div>
 </template>
 
@@ -12,7 +15,8 @@ export default {
   data () {
     return {
       visiblePosts: [],
-      allPosts: []
+      allPosts: [],
+      colorNumber: 0
     }
   },
   methods: {
@@ -27,9 +31,19 @@ export default {
       },
       renderPosts() {
         for (let i = 0; i < 5; i++) {
-          if (this.allPosts.length > 0)
-            this.visiblePosts.push(this.allPosts.pop())
+          console.log(i);
+          if (this.allPosts.length > 0) {
+            let post = this.allPosts.pop();
+            post.color = this.setColorNumber();
+            this.visiblePosts.push(post);
+          }
         }
+      },
+      setColorNumber(){
+        if (this.colorNumber === 5)
+          this.colorNumber = 0;
+        this.colorNumber++;
+        return this.colorNumber;
       }
   },
   mounted () {
@@ -57,9 +71,5 @@ function isBottomOfWindow() {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-  }
-
-  .post {
-    margin-bottom: 1em;
   }
 </style>

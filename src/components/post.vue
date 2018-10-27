@@ -1,5 +1,5 @@
 <template lang="html">
-  <div class="post">
+  <div class="post" v-bind:style="{ backgroundColor: postColor }" >
     <div class="message__container">
       {{ data.message }}
     </div>
@@ -13,6 +13,7 @@
 
 <script>
 import firebase from 'firebase'
+import colors from '../colors.js'
 
 export default {
   name: 'post',
@@ -20,7 +21,8 @@ export default {
   data: function() {
     return {
       votes: 0,
-      data: {}
+      data: {},
+      postColor: "red"
     }
   },
   methods: {
@@ -81,21 +83,27 @@ export default {
         }
         return post;
       }).then(post => this.data = post.snapshot.val())
+    },
+    setPostColor() {
+      this.postColor = colors[this.snapShot.color];
     }
   },
   mounted() {
     this.data = this.snapShot.val();
+    this.setPostColor();
   }
 }
 </script>
 
 <style lang="css">
   .post {
-    width: 200px;
+    width: 85%;
     height: 100px;
     background: greenyellow;
     border-radius: 10px;
-    padding: 15px;
+    padding: 1em;
+
+    margin-bottom: 0.5em;
 
     display: flex;
     flex-direction: row;
@@ -119,10 +127,10 @@ export default {
   }
 
   i {
-    border: solid black;
-    border-width: 0 3px 3px 0;
+    border: solid white;
+    border-width: 0 0.4em 0.4em 0;
     display: inline-block;
-    padding: 3px;
+    padding: 0.5em;
   }
 
   .up {
