@@ -31,7 +31,6 @@ export default {
       },
       renderPosts() {
         for (let i = 0; i < 5; i++) {
-          console.log(i);
           if (this.allPosts.length > 0) {
             let post = this.allPosts.pop();
             post.color = this.setColorNumber();
@@ -49,9 +48,7 @@ export default {
   mounted () {
     this.fetchAllPostsFromDatabase();
     window.onscroll = () => {
-      if (isBottomOfWindow()) {
-          this.renderPosts();
-      }
+      if (isBottomOfWindow()) this.renderPosts();
     }
   },
   components: {

@@ -1,11 +1,11 @@
 <template lang="html">
   <div class="post" v-bind:style="{ backgroundColor: postColor }" >
     <div class="message__container">
-      {{ data.message }}
+      <p>{{ data.message }}</p>
     </div>
     <div class='vote__buttons'>
       <button v-on:click='voteUp' class="button__up"><i class="arrow up"></i> </button>
-        {{ data.likesCount - data.dislikesCount }}
+        <p>{{ data.likesCount - data.dislikesCount }}</p>
       <button v-on:click='voteDown' class="button__down"><i class="arrow down"></i></button>
     </div>
   </div>
@@ -95,10 +95,11 @@ export default {
 }
 </script>
 
-<style lang="css">
+<style scoped lang="css">
   .post {
-    width: 85%;
-    height: 100px;
+    width: 17.5em;
+    max-width: 100%;
+    height: 7.5em;
     background: greenyellow;
     border-radius: 10px;
     padding: 1em;
@@ -141,5 +142,9 @@ export default {
   .down {
     transform: rotate(45deg);
     -webkit-transform: rotate(45deg);
+  }
+
+  p {
+    color: white;
   }
 </style>

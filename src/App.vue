@@ -53,8 +53,9 @@ export default {
   max-width: 25em;
   max-height: 50em;
 
+  height: 100%;
+
   margin: auto;
-  width: 50%;
 }
 
 #app > img {
