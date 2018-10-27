@@ -26,6 +26,7 @@ import firebase from 'firebase'
 export default {
   data: function() {
     return {
+      message: "",
       formVisibility: false
     }
   },
@@ -44,9 +45,9 @@ export default {
         author: email,
         message: message,
         likesCount: 0,
-        likes: {},
+        //likes: {},
         dislikesCount: 0,
-        dislikes: {}
+        //dislikes: {}
       };
 
       const newPostKey = firebase.database().ref().child('posts').push().key;
@@ -54,7 +55,15 @@ export default {
       updates['/posts/' + newPostKey] = postData;
       updates['/user-posts/' + userId + '/' + newPostKey] = postData;
 
-      firebase.database().ref().update(updates);
+      firebase.database().ref().update(updates)
+      .then(() => this.updateVisiblePosts('/user-posts/' + userId + '/' + newPostKey))
+    },
+    updateVisiblePosts(url){
+      firebase.database().ref(url).once('value')
+      .then(snapshot => {
+        this.$store.commit('appendPostFromForm', snapshot);
+        this.message = "";
+      })
     }
   }
 }
@@ -88,11 +97,12 @@ export default {
   }
   .closeForm {
     text-align: right;
-    padding: 0.5em;
+    padding: 0.25em;
   }
   textarea{
     height: 5em;
     width: 97.5%;
+    border-radius: 0.35em;
   }
   button {
     color: white;

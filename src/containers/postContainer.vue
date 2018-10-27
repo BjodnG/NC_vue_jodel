@@ -1,8 +1,9 @@
 <template lang="html">
   <div class="post__container">
     <post class="post"
-          v-for="post in visiblePosts"
+          v-for="post in $store.state.visiblePosts"
           :snapShot="post"
+          :key="post.key"
           />
   </div>
 </template>
@@ -14,7 +15,6 @@ import post from '../components/post.vue';
 export default {
   data () {
     return {
-      visiblePosts: [],
       allPosts: [],
       colorNumber: 0
     }
@@ -32,17 +32,10 @@ export default {
       renderPosts() {
         for (let i = 0; i < 5; i++) {
           if (this.allPosts.length > 0) {
-            let post = this.allPosts.pop();
-            post.color = this.setColorNumber();
-            this.visiblePosts.push(post);
+            let postSnapshot = this.allPosts.pop();
+            this.$store.commit('appendVisiblePost', postSnapshot);
           }
         }
-      },
-      setColorNumber(){
-        if (this.colorNumber === 5)
-          this.colorNumber = 0;
-        this.colorNumber++;
-        return this.colorNumber;
       }
   },
   mounted () {
