@@ -35,7 +35,12 @@ export default {
       this.formVisibility = !this.formVisibility;
     },
     sendMessage: function() {
-      this.writeToDatabase(this.message);
+      const currentUser = firebase.auth().currentUser;
+      if (!currentUser) {
+        this.$router.push('login');
+      } else {
+        this.writeToDatabase(this.message);
+      }
     },
     writeToDatabase: function(message) {
       const userId = firebase.auth().currentUser.uid;

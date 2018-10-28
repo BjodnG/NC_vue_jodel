@@ -27,62 +27,68 @@ export default {
   },
   methods: {
     voteUp: function() {
-      const uid = firebase.auth().currentUser.uid;
-      const postRef = this.snapShot.ref;
-      postRef.on('value', () => {console.log('onValue');})
-      postRef.transaction(post => {
-        if (post) {
-          if (post.likes && post.likes[uid]) {
-            //post.likesCount--;
-            //post.likes[uid] = null;
-            console.log('Allerede gitt like');
-          } else {
-            if (post.dislikes && post.dislikes[uid]) {
-              post.dislikesCount--;
-              post.dislikes[uid] = null;
+      const currentUser = firebase.auth().currentUser;
+      if (!currentUser) {
+        this.$router.push('login');
+      } else {
+        const uid = currentUser.uid;
+        const postRef = this.snapShot.ref;
+        postRef.on('value', () => {console.log('onValue');})
+        postRef.transaction(post => {
+          if (post) {
+            if (post.likes && post.likes[uid]) {
+              console.log('Allerede gitt like');
             } else {
-              post.likesCount++;
-              if (!post.likes) {
-                post.likes = {};
+              if (post.dislikes && post.dislikes[uid]) {
+                post.dislikesCount--;
+                post.dislikes[uid] = null;
+              } else {
+                post.likesCount++;
+                if (!post.likes) {
+                  post.likes = {};
+                }
+                post.likes[uid] = true;
               }
-              post.likes[uid] = true;
             }
+            console.log('Like fullført');
+          } else {
+            console.log("Feil med post.");
           }
-          console.log('Like fullført');
-        } else {
-          console.log("Feil med post.");
-        }
-        return post;
-      }).then(post => this.data = post.snapshot.val())
+          return post;
+        }).then(post => this.data = post.snapshot.val())
+      }
     },
     voteDown: function() {
-      const uid = firebase.auth().currentUser.uid;
-      const postRef = this.snapShot.ref;
-      postRef.on('value', () => {console.log('onValue');})
-      postRef.transaction(post => {
-        if (post) {
-          if (post.dislikes && post.dislikes[uid]) {
-            //post.dislikesCount--;
-            //post.dislikes[uid] = null;
-            console.log('Allerede gitt data-bind="disable: "like');
-          } else {
-            if (post.likes && post.likes[uid]) {
-              post.likesCount--;
-              post.likes[uid] = null;
+      const currentUser = firebase.auth().currentUser;
+      if (!currentUser) {
+        this.$router.push('login');
+      } else {
+        const uid = currentUser.uid;
+        const postRef = this.snapShot.ref;
+        postRef.on('value', () => {console.log('onValue');})
+        postRef.transaction(post => {
+          if (post) {
+            if (post.dislikes && post.dislikes[uid]) {
+              console.log('Allerede gitt data-bind="disable: "like');
             } else {
-              post.dislikesCount++;
-              if (!post.dislikes) {
-                post.dislikes = {};
+              if (post.likes && post.likes[uid]) {
+                post.likesCount--;
+                post.likes[uid] = null;
+              } else {
+                post.dislikesCount++;
+                if (!post.dislikes) {
+                  post.dislikes = {};
+                }
+                post.dislikes[uid] = true;
               }
-              post.dislikes[uid] = true;
             }
+            console.log('Like fullført');
+          } else {
+            console.log("Feil med post.");
           }
-          console.log('Like fullført');
-        } else {
-          console.log("Feil med post.");
-        }
-        return post;
-      }).then(post => this.data = post.snapshot.val())
+          return post;
+        }).then(post => this.data = post.snapshot.val())
+      }
     },
     setPostColor() {
       this.postColor = colors[this.snapShot.color];
@@ -97,7 +103,7 @@ export default {
 
 <style scoped lang="css">
   .post {
-    width: 17.5em;
+    width: 19.5em;
     max-width: 100%;
     height: 7.5em;
     background: greenyellow;

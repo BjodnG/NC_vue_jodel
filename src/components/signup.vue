@@ -1,12 +1,15 @@
 <template lang="html">
   <div class="sign-up">
+    <a  class="loginLink" href="/">Tilbake</a>
     <h3>Opprett en ny konto!</h3>
     <input v-model="email" type="text" placeholder="Email"><br>
     <input v-model="password" type="password" placeholder="Passord" ><br>
     <button v-on:click="signUp">Opprett</button>
-    <router-link to="/login">
-      <p> Gå tilbake til logg inn. </p>
-    </router-link>
+    <p>
+      <router-link to="/login">
+        Gå tilbake til logg inn.
+      </router-link>
+    </p>
   </div>
 </template>
 
@@ -26,7 +29,8 @@ export default {
       firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
       .then(
         user => {
-          alert('Din konto er opprettet')
+          alert('Din konto er opprettet');
+          this.$router.push('/');
         },
         err => {
           alert('Oops. ' + err.message)

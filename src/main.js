@@ -3,7 +3,7 @@ import Vuex from 'vuex';
 import router from './router'
 import App from './App.vue'
 import firebase from 'firebase'
-import store from './store'
+import postStore from './store'
 
 let app;
 // Initialize Firebase - Denne burde være i egen fil..
@@ -17,6 +17,7 @@ let config = {
 };
 
 Vue.use(Vuex);
+const store = new Vuex.Store(postStore);
 
 firebase.initializeApp(config);
 firebase.auth().onAuthStateChanged(function(user) {

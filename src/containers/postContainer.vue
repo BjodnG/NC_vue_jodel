@@ -13,33 +13,17 @@ import firebase from 'firebase';
 import post from '../components/post.vue';
 
 export default {
-  data () {
-    return {
-      allPosts: [],
-      colorNumber: 0
-    }
-  },
   methods: {
-      fetchAllPostsFromDatabase() {
-        firebase.database().ref('/posts/').once('value')
-        .then(snapShots => {
-          snapShots.forEach(snap => {
-            this.allPosts.push(snap);
-          })
-          this.renderPosts();
-        });
-      },
       renderPosts() {
         for (let i = 0; i < 5; i++) {
-          if (this.allPosts.length > 0) {
-            let postSnapshot = this.allPosts.pop();
-            this.$store.commit('appendVisiblePost', postSnapshot);
-          }
+          //this.$store.commit('appendVisiblePost');
+          this.$store.dispatch('appendVisiblePost');
         }
       }
   },
   mounted () {
-    this.fetchAllPostsFromDatabase();
+    //this.fetchAllPostsFromDatabase();
+    this.renderPosts();
     window.onscroll = () => {
       if (isBottomOfWindow()) this.renderPosts();
     }

@@ -1,12 +1,15 @@
 <template lang="html">
   <div class="login">
+    <a class="loginLink" href="/">Tilbake</a>
     <h3>Logg inn</h3>
     <input v-model="email" type="text" placeholder="Email"><br>
     <input v-model="password" type="password" placeholder="Passord"><br>
     <button v-on:click="login" >Login</button>
+    <p>
     <router-link to="/sign-up">
-      <p >Har du ikke konto? Registrer deg her.</p>
+      Har du ikke konto? Registrer deg her.
     </router-link>
+  </p>
   </div>
 </template>
 
@@ -27,7 +30,7 @@ export default {
       .then(
         user => {
           alert('Du er logget inn!')
-          this.$router.replace('/')
+          this.$router.push('/')
         },
         err => {
           alert('Oops. ' + err.message)
