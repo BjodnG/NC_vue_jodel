@@ -104,7 +104,7 @@ export default {
 <style scoped lang="css">
   .post {
     width: 22em;
-    max-width: 100%;
+    max-width: calc (100% - 2em);
     height: 7em;
     background: greenyellow;
     border-radius: 10px;
