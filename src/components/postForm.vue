@@ -10,11 +10,11 @@
       </svg>
     </div>
     <div class="form" v-if="formVisibility">
-      <div class="closeForm" v-on:click="showForm()">
-        X
-      </div>
       <textarea v-model="message" placeholder="Jodle litt..." />
-      <button v-on:click="sendMessage" >Send</button>
+      <div class="buttons">
+        <button v-on:click="showForm()" >Avbryt</button>
+        <button v-on:click="sendMessage" >Send</button>
+      </div>
     </div>
   </div>
 
@@ -96,26 +96,71 @@ export default {
   }
 
   .form {
-    background-color: #8CB2F2;
-    padding: 0.2em;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.75);
+    padding: 1em;
     text-align: right;
   }
   .closeForm {
+    display: flex;
+    align-self: flex-end;
     text-align: right;
-    padding: 0.25em;
+    padding-right: 0.5em;
+    font-size: 40px;
+    color: white;
+    font-weight: bold;
+    margin-top: -2em;
+    position: absolute;
   }
   textarea{
-    height: 5em;
-    width: 97.5%;
+    height: 7em;
+    width: 40em;
     border-radius: 0.35em;
+    padding: 1em;
+    font-size: 16px;
   }
+  .buttons {
+    width: 40em;
+    display: flex;
+    justify-content: space-evenly;
+  }
+
   button {
-    color: white;
-    background-color: #32E875;
-    padding: 0.5em;
-    padding-left: 1.5em;
-    padding-right: 1.5em;
+    width: 12em;
+    height: 3em;
     border: none;
-    border-radius: 0.75em;
+    border-radius: 5px;
+    margin-top: 1em;
+    font-size: 18px;
+  }
+  button:first-child {
+    background-color: lightgray;
+    color: black;
+  }
+  button:last-child {
+    background-color: #028193;
+    color: white;
+  }
+
+  @media screen and (max-width: 866px) {
+    textarea, .buttons {
+      width: 85%;
+    }
+    .closeForm {
+      padding-right: 0.1em;
+      margin-top: -2.3em;
+    }
+  }
+
+  @media screen and (max-width: 738px) {
+    button {
+      min-width: 20%;
+    }
+    button:first-child {
+      margin-right: 1em;
+    }
   }
 </style>

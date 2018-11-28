@@ -39,6 +39,7 @@ export default {
 }
 
 h1, h2 {
+  margin-top: 1em;
   font-weight: normal;
 }
 

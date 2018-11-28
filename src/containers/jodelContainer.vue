@@ -38,5 +38,7 @@ export default {
 </script>
 
 <style scoped lang="css">
-
+  .loginLink {
+    font-size: 24px;
+  }
 </style>

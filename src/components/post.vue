@@ -103,18 +103,17 @@ export default {
 
 <style scoped lang="css">
   .post {
-    width: 19.5em;
+    width: 22em;
     max-width: 100%;
-    height: 7.5em;
+    height: 7em;
     background: greenyellow;
     border-radius: 10px;
     padding: 1em;
-
     margin-bottom: 0.5em;
-
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    font-size: 16px;
   }
 
   button {
